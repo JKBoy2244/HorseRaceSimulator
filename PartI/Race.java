@@ -1,6 +1,8 @@
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
+import java.util.ArrayList;
+import java.util.Random;
 
 
 class Race {
@@ -8,6 +10,7 @@ class Race {
     private Horse lane1Horse;
     private Horse lane2Horse;
     private Horse lane3Horse;
+    private Horse horseWinner;
 
     public Race(int distance) {
         // initialise instance variables
@@ -15,14 +18,13 @@ class Race {
         lane1Horse = null;
         lane2Horse = null;
         lane3Horse = null;
+        horseWinner = null;
     }
 
-    /**
-     * Adds a horse to the race in a given lane
-     * 
-     * @param theHorse the horse to be added to the race
-     * @param laneNumber the lane that the horse will be added to
-     */
+
+    /** The addHorse method is the method which checks the lane numbers to see if they are available and if they are, adds each of the horses to their respective lane numbers.
+    */
+    
     public void addHorse(Horse theHorse, int laneNumber)
     {
         if (laneNumber == 1)
@@ -44,50 +46,60 @@ class Race {
     }
 
     /**
-     * Start the race
-     * The horse are brought to the start and
-     * then repeatedly moved forward until the 
-     * race is finished
+     This method starts the race of the horses where the horses move forward constantly until they reach the finish line. If one horse reaches the finish line before the others, the race finishes/ends.
      */
     public void startRace()
     {
         //declare a local variable to tell us when the race is finished
         boolean finished = false;
 
-        //reset all the lanes (all horses not fallen and back to 0). 
+        //Sets all the horses to 0 at the start and fallen = false since race hasn't started.
         lane1Horse.goBackToStart();
         lane2Horse.goBackToStart();
         lane3Horse.goBackToStart();
 
         while (!finished)
         {
+
             //move each horse
-            moveHorse(lane1Horse);
-            moveHorse(lane2Horse);
-            moveHorse(lane3Horse);
+
+            //It first checks for each 3 horse lanes whether the horse has started moving or not and if it hasnt because it's still in the starting position of distance 0, the program calls the moveHorse method to prompt the horses to start moving for each respective lane.
+            if (lane1Horse != null) { 
+               moveHorse(lane1Horse);
+            } 
+            if (lane2Horse != null) {
+               moveHorse(lane2Horse);
+            }
+            if (lane3Horse != null) {
+               moveHorse(lane3Horse);
+            }   
 
             //print the race positions
             printRace();
 
-            //if any of the three horses has won the race is finished
+            //if any of the three horses has won the race is finished and there isn't a winner yet.
             if ( raceWonBy(lane1Horse) || raceWonBy(lane2Horse) || raceWonBy(lane3Horse) )
             {
                 finished = true;
             }
 
-            if (raceWonBy(lane1Horse)) {
+            //displays the winner of the horse race by checking first if there's no winner yet and the horse was the first out of the 3 to reach the end of the track. 
+            if (raceWonBy(lane1Horse) && horseWinner == null) {
                 System.out.println("The winner is " + lane1Horse.getName() + " at first place!");
             }
-            if (raceWonBy(lane2Horse)) {
+            else if (raceWonBy(lane2Horse) && horseWinner == null) {
                 System.out.println("The winner is " + lane2Horse.getName() + " at first place!");
             }
-            if (raceWonBy(lane3Horse)) {
+            else  if (raceWonBy(lane3Horse) && horseWinner == null) {
                 System.out.println("The winner is " + lane3Horse.getName() + " at first place!");
+            } else {
+
+                System.out.println("There's no winner!");
             }
 
-            //wait for 100 milliseconds
+            //wait for 200 milliseconds
             try{ 
-                TimeUnit.MILLISECONDS.sleep(100);
+                TimeUnit.MILLISECONDS.sleep(200);
             }catch(Exception e){}
         }
     }
@@ -122,10 +134,7 @@ class Race {
     }
 
     /** 
-     * Determines if a horse has won the race
-     *
-     * @param theHorse The horse we are testing
-     * @return true if the horse has won, false otherwise.
+     Checks if the horse potentially wins the race by seeing if the total distance travelled by the horse is the same as the length of the track, if yes it returns true saying yes potentially. Otherwise, it returns false.
      */
     private boolean raceWonBy(Horse theHorse)
     {
@@ -185,7 +194,7 @@ class Race {
         //else print the horse's symbol
         if(theHorse.hasFallen())
         {
-            System.out.print('\u2322');
+            System.out.print('❌');
         }
         else
         {
