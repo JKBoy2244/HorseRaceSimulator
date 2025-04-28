@@ -1,23 +1,23 @@
-# Part 1 - Textual Horse Race Simulator
+# Part 1 - Textual Horse Race Simulator (Text Version Only)
 
-This folder contains the textual version of the Horse Race Simulator.
 
-## Files
 
-- **Horse.java** — Defines horse attributes and behavior (name, symbol, confidence, movement).
-- **Race.java** — Manages the race between horses (start, move, detect winner).
-- **HorseTest.java** — Tests horse behavior and movement logic.
+## Files - There's 3 main files in this part.
+
+- **Horse.java** — Initialises and sets up the characteristics of the horse like its behaviour for example.
+- **Race.java** — Compiles all the horses racing together from start to finish and successfully displays the winner.
+- **HorseTest.java** — Tests how correctly the program compiles the horse's behaviour.
 
 ## How to Compile and Run
 
 1. Open a terminal or command prompt inside this folder.
-2. Compile all Java files:
+2. Run all Java files and make sure they compile successfully:
 
 3. Run the HorseTest class to verify functionality:
 
-4. Then run the Race simulation:
+4. Then compile/run the Race simulation to see how the horses racing simulate:
 
-## Notes
+## Extra Notes
 
-- Confidence levels affect how likely a horse is to move forward.
-- Race outcome is printed to the console.
+- Confidence levels affect how likely or unlikely a horse is to move forward. Lower the confidence level, less likely the horse is to move forward (and vice-versa).
+- Race result is displayed to the console.
